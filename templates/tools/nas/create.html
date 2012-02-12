@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Novaco Anger Scala' %}</h2>
+<a href="{% url tools:nas-index %}">{% trans 'All' %}</a>
+<form action="" method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+    {% for fieldset in form.fieldsets %}
+      <ul class="tool-table fieldset_{{ fieldset.name }}">
+          {% if fieldset.legend %}
+              <lh><h3>{{ fieldset.legend }}</h3></lh>
+          {% endif %}
+          {% for field in fieldset %}
+              {% if field.is_hidden %}
+                  {{ field }}
+              {% else %}
+              <li{{ field.row_attrs }}>
+                  {{ field.errors }}
+                  <ul class="tool-table-row">
+                      <lh class="tool-nas-s">{{ field.label_tag }}</lh>
+                      <li class="tool-nas-s-description">{{ field.help_text }}</li>
+                      <li class="tool-nas-s-answer">{{ field }}</li>
+                  </ul>
+                  <div class="break" />
+              </li>
+              {% endif %}
+          {% endfor %}
+      </ul>
+    {% endfor %}
+    <div class="break"></div>
+    <input type="submit" value="{% trans 'Save' %}" />
+</form>
+{% endblock %}

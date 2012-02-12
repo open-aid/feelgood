@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Two-column sheets' %}</h2>
+<a href="{% url tools:twocolumn-create %}">{% trans 'New sheet' %}</a>
+
+<ul>
+    {% for sheet in sheets %}
+        <li>
+            <a href="{% url tools:twocolumn-view sheet.id %}">{{ sheet.name }}</a>
+            <form action="{% url tools:twocolumn-delete sheet.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
+            </form>
+        </li>
+    {% empty %}
+        <li>No two-column sheets yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

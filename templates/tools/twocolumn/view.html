@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{{ sheet.name }}</h2>
+<a href="{% url tools:twocolumn-index %}">{% trans 'All sheets' %}</a>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <input type="submit" value="{% trans 'Save changes' %}" />
+    <ul class="tool-table">
+        <li>
+            <ul class="tool-table-row">
+                <lh class="tool-table-twocolumn-column_one">{{ sheet.column_one_title }}</lh>
+                <lh class="tool-table-twocolumn-column_two">{{ sheet.column_two_title }}</lh>
+                <lh class="tool-table-twocolumn-delete">{% trans 'Delete' %}</lh>
+            </ul>
+            <div class="break" />
+        </li>
+        {% for form in formset %}
+            <li>
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                <ul class="tool-table-row">
+                    {% for field in form.visible_fields %}
+                        <li class="tool-table-twocolumn-{{ field.name }}">{{ field }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="break" />
+            </li>
+        {% endfor %}
+    </ul>
+    <input type="submit" value="{% trans 'Save changes' %}" />
+</form>
+{% endblock %}

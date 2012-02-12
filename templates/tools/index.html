@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Counters</h2>
+<a href="{% url counters:index %}">Counter overview</a>
+<ul>
+</ul>
+<h2>Tools</h2>
+<ul>
+    <li><a href="{% url tools:bdc-index %}">Burns Depression Checklist</a></li>
+    <li><a href="{% url tools:nas-index %}">Novaco Anger Scale</a></li>
+    <li><a href="{% url tools:twocolumn-index %}">Two-column sheets</a></li>
+    <li><a href="{% url tools:triplecolumn-index %}">Triple Column Technique</a></li>
+    <li><a href="{% url tools:das-index %}">Daily Activity Schedule</a></li>
+    <li><a href="{% url tools:aps-index %}">Anti-procrastination sheet</a></li>
+</ul>
+{% endblock %}

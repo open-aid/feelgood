@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Daily Activity Schedule' %}</h2>
+<ul>
+    {% for date, note in dates %}
+        <li>
+            <a href="{% url tools:das-view date.year date.month date.day %}">{{ date }}</a>
+            {% if note %}
+            ({{ note }})
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for schedule in schedules %}
+        <li>
+            <a href="{% url tools:das-view schedule.date.year schedule.date.month schedule.date.day %}">{{ schedule.date }}</a>
+            <form action="{% url tools:das-delete schedule.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

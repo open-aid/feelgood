@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Triple Column Technique</h2>
+<form action="{% url tools:triplecolumn-create %}" method="post">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    
+    <ul class="tool-table">
+        <li>
+            <ul class="tool-table-row">
+                {% for field in form.visible_fields %}
+                    <li class="fieldWrapper tool-tct-{{ field.name }} tool-tct-form-{{ field.name }}">
+                        {{ field.errors }}
+                        {{ field }}
+                    </li>
+                {% endfor %}
+                <li class="tool-tct-create-entry"><input type="submit" value="Save" /></li>
+            </ul>
+            <div class="break" />
+        </li>
+    </ul>
+    
+</form>
+<ul class="tool-table">
+    {% for entry in entries %}
+        <li>
+            <div class="tool-threecolumn-entry-date"><a href="{% url tools:triplecolumn-view entry.id %}">{{ entry.timestamp }}</a></div>
+            <ul class="tool-table-row">
+                <li class="tool-tct-automatic_thought">{{ entry.automatic_thought }}</li>
+                <li class="tool-tct-cognitive_distortion">
+                    <ul>
+                        {% for distortion in entry.cognitive_distortions.all %}
+                            <li>{{ distortion.name }}</li>
+                        {% empty %}
+                            <li>None selected</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="tool-tct-rational_response">{{ entry.rational_response }}</li>
+                <li class="tool-tct-delete-entry">
+                    <form action="{% url tools:triplecolumn-delete entry.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Remove" onclick="return confirm('Are you sure?')" />
+                    </form>
+                </li>
+            </ul>
+            <div class="break" />
+        </li>
+    {% empty %}
+        <li>No entries yet.<li>
+    {% endfor %}
+</ul>
+{% endblock %}

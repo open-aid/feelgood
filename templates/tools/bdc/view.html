@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>BDC</h2>
+<a href="{% url tools:bdc-index %}">All BDCs</a>
+<p>{{ bdc.timestamp }}</p>
+<p>{{ bdc.score }}</p>
+<ul>
+    {% for score, question in bdc.questions %}
+        <li>{{ question.help_text }} - {{ score }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

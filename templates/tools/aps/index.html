@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Anti Procrastination Sheet' %}</h2>
+<ul>
+    {% for date, note in dates %}
+        <li>
+            <a href="{% url tools:aps-view date.year date.month date.day %}">{{ date }}</a>
+            {% if note %}
+            ({{ note }})
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for sheet in sheets %}
+        <li>
+            <a href="{% url tools:aps-view sheet.date.year sheet.date.month sheet.date.day %}">{{ sheet.date }}</a>
+            <form action="{% url tools:aps-delete sheet.date.year sheet.date.month sheet.date.day %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

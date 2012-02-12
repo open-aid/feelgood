@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Anti Procrastination Sheet' %}</h2>
+<a href="{% url tools:aps-view entry.sheet.date.year entry.sheet.date.month entry.sheet.date.day %}">Whole sheet</a>
+<form action="" method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+    {% for fieldset in form.fieldsets %}
+      <ul class="tool-table fieldset_{{ fieldset.name }}">
+          {% if fieldset.legend %}
+              <lh><h3>{{ fieldset.legend }}</h3></lh>
+          {% endif %}
+          {% for field in fieldset %}
+              {% if field.is_hidden %}
+                  {{ field }}
+              {% else %}
+              <li{{ field.row_attrs }}>
+                  {{ field.errors }}
+                  <ul class="tool-table-row">
+                      <lh class="tool-aps-q">{{ field.label_tag }}</lh>
+                      <li class="tool-aps-q-description">{{ field.help_text }}</li>
+                      <li class="tool-aps-q-answer">{{ field }}</li>
+                  </ul>
+              </li>
+              {% endif %}
+          {% endfor %}
+      </ul>
+    {% endfor %}
+    <div class="break"></div>
+    <input type="submit" value="Save" />
+</form>
+{% endblock %}

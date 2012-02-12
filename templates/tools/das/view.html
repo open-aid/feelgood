@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Daily Activity Schedule' %}</h2>
+<a href="{% url tools:das-index %}">{% trans 'All Schedules' %}</a>
+<p>{{ das.date }}</p>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <input type="submit" value="{% trans 'Save changes' %}" />
+    <ul class="tool-table">
+        <li>
+            <ul class="tool-table-row">
+                <lh class="tool-table-das-hour">{% trans 'Hour' %}</lh>
+                <lh class="tool-table-das-prospective">{% trans 'Prospective' %}</lh>
+                <lh class="tool-table-das-retrospective">{% trans 'Retrospective' %}</lh>
+            </ul>
+            <div class="break" />
+        </li>
+        {% for form in formset %}
+            <li>
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                <ul class="tool-table-row">
+                    <li class="tool-table-das-hour">{{ form.instance.human_hour }}</li>
+                    {% for field in form.visible_fields %}
+                        <li class="tool-table-das-{{ field.name }}">{{ field }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="break" />
+            </li>
+        {% endfor %}
+    </ul>
+    <input type="submit" value="{% trans 'Save changes' %}" />
+</form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Counters' %}</h2>
+<a href="{% url counters:create %}">{% trans 'New counter' %}</a>
+<ul>
+    {% for counter in counters %}
+        <li>
+            <a href="{% url counters:view counter.id %}">{{ counter.name }} ({{ counter.count }})</a>
+            <form action="{% url counters:delete counter.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

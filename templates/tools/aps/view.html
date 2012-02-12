@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Anti Procrastination Sheet' %}</h2>
+<a href="{% url tools:aps-index %}">{% trans 'All sheets' %}</a>
+<p>{{ sheet.date }}</p>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <input type="submit" value="{% trans 'Save changes' %}" />
+    <ul class="tool-table">
+        <li>
+            <ul class="tool-table-row">
+                <lh class="tool-table-aps-activity">{% trans 'Activity' %}</lh>
+                <lh class="tool-table-aps-predicted_difficulty">{% trans 'Predicted difficulty' %} (0-100)</lh>
+                <lh class="tool-table-aps-predicted_satisfaction">{% trans 'Predicted satisfaction' %} (0-100)</lh>
+                <lh class="tool-table-aps-actual_difficulty">{% trans 'Actual difficulty' %} (0-100)</lh>
+                <lh class="tool-table-aps-actual_satisfaction">{% trans 'Actual satisfaction' %} (0-100)</lh>
+                <lh class="tool-table-aps-delete">{% trans 'Remove' %}</lh>
+            </ul>
+            <div class="break" />
+        </li>
+        {% for form in formset %}
+            <li>
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                <ul class="tool-table-row">
+                    {% for field in form.visible_fields %}
+                        <li class="tool-table-aps-{{ field.name }}">{{ field }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="break" />
+            </li>
+        {% endfor %}
+    </ul>
+    <input type="submit" value="{% trans 'Save changes' %}" />
+</form>
+{% endblock %}

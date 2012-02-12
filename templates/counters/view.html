@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{{ counter.name }}</h2>
+<a href="{% url counters:index %}">{% trans 'All counters' %}</a>
+<p>{{ counter.count }}</p>
+<form action="{% url counters:count counter.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="{% trans 'Increase +1' %}" />
+</form>
+<form action="{% url counters:reset counter.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="{% trans 'Reset' %}" />
+</form>
+{% endblock %}

@@ -1,0 +1,115 @@
+
+/* HTML */
+
+body {
+  background: url("/static/img/gradient-blue-top.png") repeat-x scroll 0 0 #DCE9F6;
+  font-family: Helvetica,Arial,sans-serif;
+  margin: 0;
+}
+
+/* UTILS */
+
+.break {clear:both;}
+
+/* CORE ELEMENTS */
+
+#main {
+  background: #eee;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 0 5px #333;
+  margin: 30px auto;
+  padding: 0 20px 30px;
+  width: 900px;
+  position:relative;
+}
+
+#content {
+  float:left;
+  color: #666666;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+ul.tool-table {
+  list-style: none;
+  padding:5px 5px 10px;
+  margin: 0;
+  clear:both;
+}
+
+ul.tool-table > * {
+  clear:both;
+  border-bottom: 1px solid #ddd;
+}
+
+ul.tool-table-row {
+  list-style:none;
+  margin:0;
+  padding:0;
+  clear:both;
+}
+
+ul.tool-table-row > lh {
+  font-size:0.9em;
+}
+
+ul.tool-table-row > * {
+  float:left;
+  line-height: 1.9em;
+  padding-right: 10px;
+}
+
+
+
+.tool-bdc-q { width:130px;}
+.tool-bdc-q-description { width:400px;}
+.tool-bdc-q-answer { width:150px; }
+
+.tool-nas-s { width:110px;}
+.tool-nas-s-description { width:450px;}
+.tool-nas-s-answer { width:250px; }
+
+.tool-table-twocolumn-column_one, .tool-table-twocolumn-column_two {
+  width: 400px;
+}
+
+.tool-table-twocolumn-column_one textarea, .tool-table-twocolumn-column_two textarea {
+  width:390px;
+  height:100px;
+}
+
+.tool-tct-form-cognitive_distortions select {
+  height:120px;
+  width:200px;
+}
+
+.tool-tct-form-automatic_thought textarea, .tool-tct-form-rational_response textarea {
+  height: 120px;
+  width: 260px;
+}
+
+.tool-tct-automatic_thought { width: 270px; }
+.tool-tct-cognitive_distortion { width: 200px; }
+.tool-tct-rational_response { width: 270px; }
+.tool-tct-delete-entry { width: 60px; }
+
+.tool-table-das-prospective textarea, .tool-table-das-retrospective textarea {
+  height:4em;
+  width:380px;
+}
+
+.tool-table-das-hour { width: 100px; }
+.tool-table-das-prospective { width: 400px; }
+.tool-table-das-retrospective { width: 400px; }
+
+.tool-table-aps-predicted_difficulty, .tool-table-aps-predicted_satisfaction,
+.tool-table-aps-actual_difficulty, .tool-table-aps-actual_satisfaction,
+.tool-table-aps-predicted_difficulty input, .tool-table-aps-predicted_satisfaction input,
+.tool-table-aps-actual_difficulty input, .tool-table-aps-actual_satisfaction input {
+  width: 80px;
+}
+
+.tool-table-aps-activity, .tool-table-aps-activity input {
+  width: 450px;
+}

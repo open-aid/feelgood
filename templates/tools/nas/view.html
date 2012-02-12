@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans 'Novaco Anger Scale' %}</h2>
+<a href="{% url tools:nas-index %}">{% trans 'All' %}</a>
+<p>{{ nas.timestamp }}</p>
+<p>{{ nas.score }}</p>
+<ul>
+    {% for score, statement in nas.statements %}
+        <li>{{ statement.help_text }} - {{ score }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

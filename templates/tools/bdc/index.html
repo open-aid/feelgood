@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>BDC</h2>
+<a href="{% url tools:bdc-create %}">Take test</a>
+<ul>
+    {% for bdc in bdcs %}
+        <li>
+            <a href="{% url tools:bdc-view bdc.id %}">{{ bdc.timestamp }} ({{ bdc.score }})</a>
+            <form action="{% url tools:bdc-delete bdc.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Remove" onclick="return confirm('Are you sure?')" />
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

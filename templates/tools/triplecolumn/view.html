@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Triple Column Entry</h2>
+<a href="{% url tools:triplecolumn-index %}">All entries</a>
+<p>{{ entry.timestamp }}</p>
+<p>{{ entry.automatic_thought }}</p>
+<p>{{ entry.rational_response }}</p>
+{% endblock %}
