@@ -3,16 +3,34 @@
 {% load i18n %}
 
 {% block content %}
-<h2>{% trans 'Novaco Anger Scale' %}</h2>
-<a href="{% url tools:nas-create %}">{% trans 'Take test' %}</a>
-<ul>
+<h2>{% trans 'Anger test' %}</h2>
+<p>{% blocktrans %}Measure your anger, to help you keep learn about it and see your ability to handle it improve over time.{% endblocktrans %}</p>
+<a href="{% url tools:nas-create %}" class="button create-button">{% trans 'Take test' %}</a>
+<h3>{% trans 'Previous results' %}</h3>
+<ul class='tool-table'>
     {% for nas in nass %}
         <li>
-            <a href="{% url tools:nas-view nas.id %}">{{ nas.timestamp }} ({{ nas.score }})</a>
-            <form action="{% url tools:nas-delete nas.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
-            </form>
+            <ul class='tool-table-row'>
+                <li class="tool-nas-date">
+                    <span class="bigdate-time">{{ nas.timestamp|date:"H:i" }}</span>
+                    <span class="bigdate-day-month">{{ nas.timestamp|date:"d M" }}</span>
+                    <span class="bigdate-year">{{ nas.timestamp|date:"Y" }}</span>
+                </li>
+                <lh class="tool-nas-score">
+                    <a href="{% url tools:nas-view nas.id %}">{{ nas.score }}</a>
+                </lh>
+                <li class="tool-nas-progress-bar">
+                    <div class="progress-bar">
+                        <div class="progress" style="width:{{ nas.score }}%;">&nbsp;</div>
+                    </div>
+                </li>
+                <li class="tool-delete">
+                    <form action="{% url tools:nas-delete nas.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="button bad-button" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
+                    </form>
+                </li>
+            </ul>
         </li>
     {% endfor %}
 </ul>

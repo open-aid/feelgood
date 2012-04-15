@@ -14,6 +14,7 @@ def index(request):
     sheets = TwoColumn.objects.filter(user=request.user).order_by('name')
 
     return render_response(request, 'tools/twocolumn/index.html', {
+        "current_page" : "two_column_sheets",
         'sheets' : sheets,
     })    
     
@@ -34,6 +35,7 @@ def view(request, id):
         formset = TwoColumnEntryFormSet(queryset=sheet.entries.all())
 
     return render_response(request, 'tools/twocolumn/view.html', {
+        "current_page" : "two_column_sheets",
         'sheet' : sheet,
         'formset': formset,
     })
@@ -52,6 +54,7 @@ def create(request):
         form = TwoColumnForm()
 
     return render_response(request, 'tools/twocolumn/create.html', {
+        "current_page" : "two_column_sheets",
         'form' : form,
     })
 

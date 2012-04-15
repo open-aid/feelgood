@@ -126,11 +126,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
 
     'feelgood.apps.tools',
-    'feelgood.apps.counters',
     'feelgood.apps.statistics',
     'feelgood.apps.landing',
 

@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as dj_login, logout as dj_logout, authenticate
 from django.http import HttpResponseRedirect
+from django import forms
+
+from django.utils.translation import ugettext as _
 
 from feelgood.apps.landing.forms import RegistrationForm, LoginForm
 from feelgood.util.shortcuts import render_response
@@ -15,8 +18,8 @@ def index(request):
     login = LoginForm()
 
     user = request.user
-    print user
     return render_response(request, 'landing/index.html', {
+        "current_page" : "dashboard",
         "registration_form" : register,
         "login_form" : login,
     })
@@ -27,12 +30,13 @@ def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(form.cleaned_data['username'], 
-                                            form.cleaned_data['email'],
-                                            form.cleaned_data['password'])
+            User.objects.create_user(form.cleaned_data['username'], 
+                                     form.cleaned_data['email'],
+                                     form.cleaned_data['password'])
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             dj_login(request, user)
 
-            return HttpResponseRedirect(reverse('tools'))
+            return HttpResponseRedirect(reverse('landing:index'))
     else:
         form = RegistrationForm()
 
@@ -47,9 +51,17 @@ def login(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            dj_login(request, user)
-
-            return HttpResponseRedirect(reverse('tools:index'))
+            if user is not None:
+                if user.is_active:
+                    dj_login(request, user)
+                    return HttpResponseRedirect(reverse('landing:index'))
+                else:
+                    error = _("This account has been disabled.")
+            else: 
+                error = _("Invalid username and/or password.")
+            
+            errors = form._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.util.ErrorList())
+            errors.append(error)
     else:
         form = LoginForm()
 

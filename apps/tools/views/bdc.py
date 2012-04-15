@@ -25,6 +25,7 @@ def create(request):
         form = BDCForm()
 
     return render_response(request, 'tools/bdc/create.html', {
+        "current_page" : "depression",
         'form' : form,
     })
 
@@ -34,6 +35,7 @@ def index(request):
     bdcs = BDC.objects.filter(user=request.user).order_by('-timestamp')
 
     return render_response(request, 'tools/bdc/index.html', {
+        "current_page" : "depression",
         'bdcs' : bdcs,
     })    
     
@@ -43,6 +45,7 @@ def view(request, id):
     bdc = get_object_or_404(BDC, pk=id, user=request.user)
 
     return render_response(request, 'tools/bdc/view.html', {
+        "current_page" : "depression",
         'bdc' : bdc,
     })
     

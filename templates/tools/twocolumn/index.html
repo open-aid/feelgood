@@ -4,19 +4,27 @@
 
 {% block content %}
 <h2>{% trans 'Two-column sheets' %}</h2>
-<a href="{% url tools:twocolumn-create %}">{% trans 'New sheet' %}</a>
+<p>{% blocktrans %}A sheet with two columns, where you name the columns yourself. Try for instance with a 'destructive' column and a 'constructive' column to debate an issue with your self.{% endblocktrans %}</p>
+<a href="{% url tools:twocolumn-create %}" class="button">{% trans 'New sheet' %}</a>
 
-<ul>
+<h3>{% trans 'My sheets' %}</h3>
+<ul class='tool-table'>
     {% for sheet in sheets %}
         <li>
-            <a href="{% url tools:twocolumn-view sheet.id %}">{{ sheet.name }}</a>
-            <form action="{% url tools:twocolumn-delete sheet.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
-            </form>
+            <ul class='tool-table-row'>
+                <li class='tool-twocolumn-name'>
+                    <a href="{% url tools:twocolumn-view sheet.id %}">{{ sheet.name }}</a>
+                </li>
+                <li class="tool-delete">
+                    <form action="{% url tools:twocolumn-delete sheet.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="button bad-button" value="{% trans 'Remove' %}" onclick="return confirm('{% trans 'Are you sure?' %}')" />
+                    </form>
+                </li>
+            </ul>
         </li>
     {% empty %}
-        <li>No two-column sheets yet.</li>
+        <li>{% trans 'No two-column sheets yet.' %}</li>
     {% endfor %}
 </ul>
 {% endblock %}

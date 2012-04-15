@@ -1,13 +1,40 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block content %}
-<h2>BDC</h2>
-<a href="{% url tools:bdc-index %}">All BDCs</a>
-<p>{{ bdc.timestamp }}</p>
-<p>{{ bdc.score }}</p>
-<ul>
-    {% for score, question in bdc.questions %}
-        <li>{{ question.help_text }} - {{ score }}</li>
-    {% endfor %}
+<h2>{% trans 'Depression test' %}</h2>
+<ul class='tool-table'>
+    <li>
+        <ul class='tool-table-row'>
+            <li class="tool-bdc-date">
+                <span class="bigdate-time">{{ bdc.timestamp|date:"H:i" }}</span>
+                <span class="bigdate-day-month">{{ bdc.timestamp|date:"d M" }}</span>
+                <span class="bigdate-year">{{ bdc.timestamp|date:"Y" }}</span>
+            </li>
+            <li class="tool-bdc-progress-bar">
+                <div class="progress-bar">
+                    <div class="progress" style="width:{{ bdc.score }}%;">&nbsp;</div>
+                </div>
+            </li>
+        </ul>
+    </li>
+    
+    <li>
+        {% for score, question in bdc.questions %}
+            <ul class='tool-table-row'>
+                <li class="tool-bdc-date"></li>
+                <li class="tool-bdc-q-description">{{ question.help_text }}</li>
+                <li class='tool-bdc-q-answer'>{{ score }}</li>
+            </ul>
+        {% endfor %}
+        <ul class='tool-table-row'>
+            <li class="tool-bdc-date"></li>
+            <li class="tool-bdc-q-description">Total</li>
+            <li class='tool-bdc-q-answer'>{{ bdc.score }}</li>
+        </ul>
+    </li>
+    
 </ul>
+
 {% endblock %}

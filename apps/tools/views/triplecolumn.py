@@ -24,6 +24,7 @@ def create(request):
         form = TripleColumnEntryForm()
 
     return render_response(request, 'tools/triplecolumn/create.html', {
+        "current_page" : "automatic_thoughts",
         'form' : form,
     })
 
@@ -34,6 +35,7 @@ def index(request):
     form = TripleColumnEntryForm()
 
     return render_response(request, 'tools/triplecolumn/index.html', {
+        "current_page" : "automatic_thoughts",
         'entries' : entries,
         'form'    : form,
     })    
@@ -44,6 +46,7 @@ def view(request, id):
     entry = get_object_or_404(TripleColumnEntry, pk=id, triplecolumn__user=request.user)
 
     return render_response(request, 'tools/triplecolumn/view.html', {
+        "current_page" : "automatic_thoughts",
         'entry' : entry,
     })
     

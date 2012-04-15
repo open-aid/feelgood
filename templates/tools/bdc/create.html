@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h2>Bdc</h2>
-<a href="{% url tools:bdc-index %}">All BDCs</a>
+<h2>{% trans 'Depression test' %}</h2>
+<p>{% blocktrans %}Read each statement and choose how much you think it has applied to you during the past week. Make sure to answer each one as best you can, even if you are uncertain.{% endblocktrans %}</p>
 <form action="" method="post">
     {% csrf_token %}
 
@@ -30,6 +31,6 @@
       </ul>
     {% endfor %}
     <div class="break"></div>
-    <input type="submit" value="Save" />
+    <input type="submit" class="button" value="{% trans 'Save' %}" />
 </form>
 {% endblock %}

@@ -25,6 +25,7 @@ def create(request):
         form = NovacoAngerScaleForm()
 
     return render_response(request, 'tools/nas/create.html', {
+        "current_page" : "anger",
         'form' : form,
     })
 
@@ -34,6 +35,7 @@ def index(request):
     nass = NovacoAngerScale.objects.filter(user=request.user).order_by('-timestamp')
 
     return render_response(request, 'tools/nas/index.html', {
+        "current_page" : "anger",
         'nass' : nass,
     })    
     
@@ -43,6 +45,7 @@ def view(request, id):
     nas = get_object_or_404(NovacoAngerScale, pk=id, user=request.user)
 
     return render_response(request, 'tools/nas/view.html', {
+        "current_page" : "anger",
         'nas' : nas,
     })
     

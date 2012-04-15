@@ -16,8 +16,6 @@ urlpatterns = patterns('',
 
     url(r'^tools/',    include('feelgood.apps.tools.urls',     namespace='tools')),
 
-    url(r'^counters/', include('feelgood.apps.counters.urls', namespace='counters')),
-
     url(r'^stats/',    include('feelgood.apps.statistics.urls', namespace='statistics')),
   
     url(r'^',          include('feelgood.apps.landing.urls',   namespace='landing')),

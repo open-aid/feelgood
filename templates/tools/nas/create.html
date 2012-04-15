@@ -3,8 +3,8 @@
 {% load i18n %}
 
 {% block content %}
-<h2>{% trans 'Novaco Anger Scala' %}</h2>
-<a href="{% url tools:nas-index %}">{% trans 'All' %}</a>
+<h2>{% trans 'Anger test' %}</h2>
+<p>{% blocktrans %}Read each statement and choose how much you think it has applied to you during the past week.{% endblocktrans %}</p>
 <form action="" method="post">
     {% csrf_token %}
 
@@ -32,6 +32,6 @@
       </ul>
     {% endfor %}
     <div class="break"></div>
-    <input type="submit" value="{% trans 'Save' %}" />
+    <input type="submit" class="button" value="{% trans 'Save' %}" />
 </form>
 {% endblock %}

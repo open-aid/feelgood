@@ -4,13 +4,13 @@
 
 {% block content %}
 <h2>{% trans 'Two-column sheet' %}</h2>
-<a href="{% url tools:twocolumn-index %}">All sheets</a>
+<a href="{% url tools:twocolumn-index %}">{% trans 'All sheets' %}</a>
 <form action="" method="post">
     {% csrf_token %}
 
     {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
     {{ form.as_p }}
     <div class="break"></div>
-    <input type="submit" value="Save" />
+    <input type="submit" class="button" value="Save" />
 </form>
 {% endblock %}
