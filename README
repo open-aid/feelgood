@@ -6,7 +6,7 @@ A Django website to help you feel better.
 Installation
 ------------
 
-pip install django django-form-utils south
+pip install -r dependencies.lst
 
 Startup
 -------

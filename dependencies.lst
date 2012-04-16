@@ -1,0 +1,6 @@
+gevent
+django
+django-form-utils
+south
+gevent-socketio
+

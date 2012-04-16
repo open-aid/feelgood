@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+
+{% block content %}
+<h2>{% trans 'About' %}</h2>
+<a href="/">{% trans 'Back' %}</a>
+<p>{% blocktrans %}Feelgood is a non-profit service to help you combat depression. By providing tools from Cognitive Behavioral Therapy, Feelgood helps you work through your thoughts and keep track of your depression.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}Feelgood is not made by CBT professionals, it is not a replacement for a professional therapist. If you have any sort of suicidal urges, contact a suicide hotline immediately, you can find a number to call <a href="http://www.befrienders.org/support/helplines.asp">here</a>.{% endblocktrans %}</p>
+
+<h3>{% trans 'Privacy' %}</h3>
+
+<p>{% blocktrans %}Your connection to Feelgood is not encrypted. This means that the information you send to Feelgood can be intercepted along the way. As soon as we have enough donations to pay for an encryption certificate ($50), we will remedy this.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}The information that you store with Feelgood is not shared with <i>any</i> third party. There is no external statistics service or anything else that get access to any sort of information about you or the fact that you are using this website.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}There are system administrators that have access to the databases that store the information you have entered into Feelgood. This is solely for purposes of creating backups, upgrades and maintenence. These adminstrators have signed non disclosure agreements and are prohibited from sharing any information from the databases, as well as accessing the databases for any other purpose than system administration.{% endblocktrans %}</p>
+
+<h3>{% trans 'Open Source' %}</h3>
+
+<p>{% blocktrans %}Feelgood is open source software. It is released under the GNU General Public License. The source code is available from our <a href="https://github.com/open-aid/feelgood">github account</a>.{% endblocktrans %}</p>
+
+<h3>{% trans 'Contact' %}</h3>
+
+<p>{% blocktrans %}Contact Open Aid, the organization behind Feelgood at open [at] open-aid.org .{% endblocktrans %}</p>
+{% endblock %}
+

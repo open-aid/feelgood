@@ -1,18 +1,23 @@
 # Django settings for feelgood project.
 
+import os
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+BASE_DIR = os.path.abspath( __file__ + "/../../" )
+
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Admin', 'jacob@open-aid.org'),
 )
 
 MANAGERS = ADMINS
 
+# Development DB settings, override in production settings file.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'feelgood.db',                      # Or path to database file if using sqlite3.
+        'NAME': BASE_DIR + '/feelgood/feelgood.db',
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -69,7 +74,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    "/home/jake/Projects/feelgood/static",
+    BASE_DIR + "/feelgood/static",
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
@@ -112,7 +117,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'feelgood.urls'
 
 TEMPLATE_DIRS = (
-    "/home/jake/Projects/feelgood/templates",
+    BASE_DIR + "/feelgood/templates",
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
