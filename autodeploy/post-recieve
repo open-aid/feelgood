@@ -17,21 +17,18 @@ APP_DIR=$BASE_DIR/application
 # Stop the application
 sv stop $APP_NAME
 
-
-# Move to production folder
-cd $APP_DIR
-
 # Pull these changes into production repo
-git pull origin master
+cd $APP_DIR/.git && git pull origin master
 
 
 # Install any new system dependencies
-aptitude install $(cat $APP_DIR/deb-dependencies.lst)
+#aptitude install $(cat $APP_DIR/deb-dependencies.lst)
 
 # Install any new python dependencies
 $BASE_DIR/virtualenv/bin/pip install -r $APP_DIR/pip-dependencies.lst
 
 # Perform DB migrations
+$BASE_DIR/virtualenv/bin/python $APP_DIR/feelgood/manage.py syncdb
 $BASE_DIR/virtualenv/bin/python $APP_DIR/feelgood/manage.py migrate
 
 
