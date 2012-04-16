@@ -18,7 +18,7 @@ APP_DIR=$BASE_DIR/application
 sv stop $APP_NAME
 
 # Pull these changes into production repo
-cd $APP_DIR/.git && git pull origin master
+cd $APP_DIR/.git && git pull origin master && git checkout -- .
 
 
 # Install any new system dependencies

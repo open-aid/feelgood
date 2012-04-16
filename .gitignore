@@ -1,5 +1,6 @@
 *~
 **/*feelgood.db
+**/*/production_settings.py
 *.pyc
 names
 perms
