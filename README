@@ -1,10 +1,7 @@
 Feelgood
 --------
 
-A Django project to help you feel better. 
-
-License is hereby granted for private non-commercial use to anyone.
-
+A Django website to help you feel better. 
 
 Installation
 ------------
@@ -15,3 +12,9 @@ Startup
 -------
 
 ./manage.py runserver
+
+
+License
+-------
+
+http://www.gnu.org/licenses/gpl.html
