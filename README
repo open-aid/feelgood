@@ -11,7 +11,7 @@ pip install -r dependencies.lst
 Startup
 -------
 
-./manage.py runserver
+cd feelgood && ./manage.py runserver
 
 
 License
