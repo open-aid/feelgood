@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sudo apt-get install runit python-pip build-essential python-dev

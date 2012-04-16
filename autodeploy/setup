@@ -1,0 +1,29 @@
+#!/bin/sh
+APP_NAME="feelgood.open-aid.org"
+
+BASE_DIR=/var/www/$APP_NAME
+APP_DIR=$BASE_DIR/application
+
+# Set up push repo
+git init --bare /git/$APP_NAME.git
+
+# Set up production repo
+mkdir $BASE_DIR
+mkdir $APP_DIR
+
+git init $APP_DIR
+git remote add origin /git/$APP_NAME.git
+
+chown www-data:www-data $APP_DIR -R
+
+# Init virtualenv
+virtualenv $BASE_DIR/virtualenv
+
+# Set up git commit hook
+
+# Create runit script
+mkdir /etc/sv/$APP_NAME
+chmod +x /etc/sv/$APP_NAME/run
+
+# Tell runit to use it
+ln -s /etc/sv/$APP_NAME /etc/service/$APP_NAME

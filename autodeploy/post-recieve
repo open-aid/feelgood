@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# Hook script for the "post-receive" event.
+#
+# The "post-receive" script is run after receive-pack has accepted a pack
+# and the repository has been updated.  It is passed arguments in through
+# stdin in the form
+#  <oldrev> <newrev> <refname>
+# For example:
+#  aa453216d1b3e49e7f6f98441fa56946ddcd6a20 68f7abf4e6f922807889f52bc043ecd31b79f814 refs/heads/master
+
+APP_NAME="feelgood.open-aid.org"
+
+BASE_DIR=/var/www/$APP_NAME
+APP_DIR=$BASE_DIR/application
+
+# Stop the application
+sv stop $APP_NAME
+
+
+# Move to production folder
+cd $APP_DIR
+
+# Pull these changes into production repo
+git pull origin master
+
+
+# Install any new system dependencies
+aptitude install $(cat $APP_DIR/deb-dependencies.lst)
+
+# Install any new python dependencies
+$BASE_DIR/virtualenv/bin/pip install -r $APP_DIR/pip-dependencies.lst
+
+# Perform DB migrations
+$BASE_DIR/virtualenv/bin/python $APP_DIR/feelgood/manage.py migrate
+
+
+# Start the application
+sv start $APP_NAME

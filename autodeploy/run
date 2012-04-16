@@ -1,0 +1,14 @@
+#!/bin/sh
+
+APP_NAME="feelgood.open-aid.org"
+
+ROOT=/var/www/$APP_NAME
+PID=/var/run/$APP_NAME.pid
+
+PYTHON=$ROOT/virtualenv/bin/python
+APPLICATION=$ROOT/application/runner.py
+
+if [ -f $PID ]; then rm $PID; fi
+
+cd $ROOT
+exec $PYTHON $APPLICATION
