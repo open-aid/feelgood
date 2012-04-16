@@ -4,6 +4,9 @@ APP_NAME="feelgood.open-aid.org"
 BASE_DIR=/var/www/$APP_NAME
 APP_DIR=$BASE_DIR/application
 
+USER="jake"
+GROUP="jake"
+
 # Set up push repo
 git init --bare /git/$APP_NAME.git
 
@@ -14,7 +17,7 @@ mkdir $APP_DIR
 git init $APP_DIR
 git remote add origin /git/$APP_NAME.git
 
-chown www-data:www-data $APP_DIR -R
+chown $USER:$GROUP $APP_DIR -R
 
 # Init virtualenv
 virtualenv $BASE_DIR/virtualenv
@@ -27,3 +30,7 @@ chmod +x /etc/sv/$APP_NAME/run
 
 # Tell runit to use it
 ln -s /etc/sv/$APP_NAME /etc/service/$APP_NAME
+
+# Allow running user to stop/start this service
+chmod 755 /etc/sv/$APP_NAME/supervise
+chown $USER /etc/sv/$APP_NAME/supervise/ok /etc/sv/$APP_NAME/supervise/control /etc/sv/$APP_NAME/supervise/status
