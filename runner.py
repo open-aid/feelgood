@@ -4,7 +4,8 @@ PORT = 9000
 
 import os
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'feelgood.settings'
+if os.environ['DJANGO_SETTINGS_MODULE'] is None:
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'feelgood.settings'
 
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
