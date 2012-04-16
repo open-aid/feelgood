@@ -2,3 +2,5 @@
 feelgood.db
 *.pyc
 names
+perms
+deps
