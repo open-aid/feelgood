@@ -13,11 +13,22 @@ from django.utils.translation import ugettext as _
 from feelgood.apps.landing.forms import RegistrationForm, LoginForm
 from feelgood.util.shortcuts import render_response
 
+from feelgood.apps.tools.models import BDC, NovacoAngerScale
+
 def index(request):
     register = RegistrationForm()
     login = LoginForm()
 
-    user = request.user
+    if request.user.is_authenticated():
+        bdcs = BDC.objects.filter(user=request.user).order_by('-timestamp')[:50]
+        nass = NovacoAngerScale.objects.filter(user=request.user).order_by('-timestamp')[:50]
+        
+        return render_response(request, 'landing/dashboard.html', {
+            "current_page" : "dashboard",
+            "bdcs"         : bdcs,
+            "nass"         : nass,
+        })
+
     return render_response(request, 'landing/index.html', {
         "current_page" : "dashboard",
         "registration_form" : register,

@@ -7,6 +7,8 @@
 <head>
     <link rel="stylesheet" href="{% get_static_prefix %}/style.css" />
     <title>{% block title %}Feelgood{% endblock %}</title>
+    
+    {% block extra_head %}{% endblock %}
 </head>
 
 <body>
@@ -31,10 +33,14 @@
                        href="{% url tools:twocolumn-index %}">{% trans 'Two-column sheets' %}</a></li>
             </ul>
             <div class="footer">
+                <a href="{% url landing:about %}">{% trans 'About' %}</a>
                 <a href="{% url landing:logout %}">{% trans 'Sign out' %}</a>
             </div>
             {% else %}
             <p>{% blocktrans %}A free resource to help you fight depression.{% endblocktrans %}</p>
+            <div class="footer">
+                <a href="{% url landing:about %}">{% trans 'About' %}</a>
+            </div>
             {% endif %}
         {% endblock %}
     </div>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+
+{% block extra_head %}
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{% get_static_prefix %}/js/excanvas.min.js"></script><![endif]-->
+    <script type="text/javascript" src="{% get_static_prefix %}/js/jquery.js"></script>
+    <script type="text/javascript" src="{% get_static_prefix %}/js/jquery.flot.js"></script>
+
+    <!-- Draws the anger and depression plots -->
+    <script type="text/javascript">
+    $(function() {
+        var depressionStats = [
+            {% for bdc in bdcs %}[{{bdc.timestamp|date:"U" }}000, {{bdc.score}}],{% endfor %}
+        ];
+
+        var angerStats = [
+            {% for nas in nass %}[{{nas.timestamp|date:"U" }}000, {{nas.score}}],{% endfor %}
+        ];
+        
+        $.plot($("#depression-plot"), [depressionStats], { xaxis: { mode: "time" } });
+        $.plot($("#anger-plot"), [angerStats], { xaxis: { mode: "time" } });
+    });
+    </script>
+{% endblock %}
+
+
+{% block content %}
+<h2>{% trans 'Dashboard' %}</h2>
+<p>{% blocktrans %}Welcome! If this is your first time here, please know the site is brand new, so it is still a bit messy. We're working on putting together a getting-started guide!{% endblocktrans %}A good place to start is to <a href="{% url tools:bdc-create %}">take a depression test<a>.</p>
+<p>{% blocktrans %}The tools you find here can be read about in the self-help book Feeling Good, by David Burns.{% endblocktrans %}</p>
+
+<h3>{% trans 'Depression tests' %}</h3>
+<div id="depression-plot" style="width:100%;height:200px;"></div>  
+
+<h3>{% trans 'Anger tests' %}</h3>
+<div id="anger-plot" style="width:100%;height:200px;"></div>
+{% endblock %}
+
